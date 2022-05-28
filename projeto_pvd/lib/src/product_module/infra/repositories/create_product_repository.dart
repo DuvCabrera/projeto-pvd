@@ -1,3 +1,6 @@
 abstract class ICreateProductRepository {
-  Future<void> create(Map<String, dynamic> data);
+  Future<void> create({
+    required Map<String, dynamic> data,
+    required String tableName,
+  });
 }

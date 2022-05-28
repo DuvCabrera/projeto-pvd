@@ -5,7 +5,8 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:projeto_pvd/src/product_module/infra/infra.dart';
+import 'package:projeto_pvd/src/product_module/infra/repositories/create_product_repository.dart'
+    as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -21,14 +22,15 @@ import 'package:projeto_pvd/src/product_module/infra/infra.dart';
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockICreateProductRepository extends _i1.Mock
-    implements ICreateProductRepository {
+    implements _i2.ICreateProductRepository {
   MockICreateProductRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<void> create(Map<String, dynamic>? data) =>
-      (super.noSuchMethod(Invocation.method(#create, [data]),
+  _i3.Future<void> create({Map<String, dynamic>? data, String? tableName}) =>
+      (super.noSuchMethod(
+          Invocation.method(#create, [], {#data: data, #tableName: tableName}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
 }

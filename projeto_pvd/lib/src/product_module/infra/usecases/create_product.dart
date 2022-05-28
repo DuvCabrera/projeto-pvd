@@ -10,7 +10,7 @@ class CreateProduct extends ICreateProduct {
   Future<void> createProduct(Product entity) async {
     try {
       final Map<String, dynamic> data = ProductModel.fromEntity(entity).toMap();
-      await repository.create(data);
+      await repository.create(data: data, tableName: tableName);
     } catch (e) {
       throw DomainError.unexpected;
     }

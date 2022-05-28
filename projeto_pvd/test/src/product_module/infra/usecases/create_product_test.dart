@@ -15,7 +15,7 @@ void main() {
   late String tableName;
 
   PostExpectation mockRepository() {
-    return when(repository.create(data));
+    return when(repository.create(data: data, tableName: tableName));
   }
 
   void mockResponseThrow(error) {
@@ -32,7 +32,7 @@ void main() {
   });
   test('create must call the right params ', () async {
     await sut.createProduct(product);
-    verify(repository.create(data));
+    verify(repository.create(data: data, tableName: tableName));
   });
 
   test('create must return DomainError.unspected when thows', () {
