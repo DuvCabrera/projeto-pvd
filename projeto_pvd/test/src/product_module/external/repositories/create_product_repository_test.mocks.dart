@@ -41,4 +41,9 @@ class MockIProductDatasource extends _i1.Mock
               #update, [], {#data: data, #tableName: tableName, #id: id}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<void> delete({String? tableName, int? id}) => (super.noSuchMethod(
+      Invocation.method(#delete, [], {#tableName: tableName, #id: id}),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
 }
