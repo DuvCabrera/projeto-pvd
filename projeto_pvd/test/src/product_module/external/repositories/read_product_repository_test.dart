@@ -4,30 +4,6 @@ import 'package:projeto_pvd/src/modules.dart';
 
 import 'create_product_repository_test.mocks.dart';
 
-class ReadProductRepository extends IReadProductRepository {
-  final IProductDatasource datasource;
-
-  ReadProductRepository(this.datasource);
-  @override
-  Future<List<Map<String, dynamic>>> read(
-      {int? id, required String tableName}) async {
-    try {
-      final List<Map<String, dynamic>> result =
-          await datasource.read(tableName: tableName, id: id);
-      for (var map in result) {
-        if (map.isEmpty) throw ExternalError.invalidData;
-      }
-      return result;
-    } on ExternalError catch (e) {
-      e == ExternalError.invalidData
-          ? throw ExternalError.invalidData
-          : throw ExternalError.unexpected;
-    } catch (e) {
-      throw ExternalError.unexpected;
-    }
-  }
-}
-
 void main() {
   late ReadProductRepository sut;
   late String tableName;
