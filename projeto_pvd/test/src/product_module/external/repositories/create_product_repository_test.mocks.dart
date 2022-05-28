@@ -5,8 +5,8 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-
-import 'create_product_repository_test.dart' as _i2;
+import 'package:projeto_pvd/src/product_module/external/datasource/product_datasource.dart'
+    as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -31,6 +31,14 @@ class MockIProductDatasource extends _i1.Mock
   _i3.Future<void> create({Map<String, dynamic>? data, String? tableName}) =>
       (super.noSuchMethod(
           Invocation.method(#create, [], {#data: data, #tableName: tableName}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<void> update(
+          {Map<String, dynamic>? data, String? tableName, int? id}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #update, [], {#data: data, #tableName: tableName, #id: id}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
 }
