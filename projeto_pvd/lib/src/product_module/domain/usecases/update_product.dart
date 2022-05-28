@@ -1,5 +1,5 @@
 import '../domain.dart';
 
 abstract class IUpdateProduct {
-  Future<void> updateProducts(int id, Product entity);
+  Future<void> updateProducts({required int id, required Product entity});
 }
