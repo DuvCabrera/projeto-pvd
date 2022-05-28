@@ -9,9 +9,11 @@ class ReadProduct extends IReadProduct {
   @override
   Future<Product> readProductById(int id) async {
     try {
-      final Map<String, dynamic> result =
-          await repository.readById(id: id, tableName: tableName);
-      return ProductModel.fromMap(result);
+      final List<Map<String, dynamic>> result =
+          await repository.read(id: id, tableName: tableName);
+      final Map<String, dynamic> productMap = result
+          .firstWhere((element) => element.containsValue(id), orElse: () => {});
+      return ProductModel.fromMap(productMap);
     } on InfraError catch (e) {
       e == InfraError.invalidData
           ? throw InfraError.invalidData
@@ -24,7 +26,8 @@ class ReadProduct extends IReadProduct {
   @override
   Future<List<Product>> readProducts() async {
     try {
-      final List<Map<String, dynamic>> response = await repository.read();
+      final List<Map<String, dynamic>> response =
+          await repository.read(tableName: tableName);
       List<Product> products = [];
       for (var map in response) {
         final Product product = ProductModel.fromMap(map);

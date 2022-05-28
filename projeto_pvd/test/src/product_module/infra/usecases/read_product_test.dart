@@ -14,16 +14,16 @@ void main() {
   late Product product;
 
   PostExpectation mockRepository() {
-    return when(repository.readById(id: id, tableName: tableName));
+    return when(repository.read(id: id, tableName: tableName));
   }
 
   PostExpectation mockRepository2() {
-    return when(repository.read());
+    return when(repository.read(tableName: tableName));
   }
 
   void mockReponseByIdSuccess() {
     mockRepository().thenAnswer(
-        (realInvocation) async => ProductModel.fromEntity(product).toMap());
+        (realInvocation) async => [ProductModel.fromEntity(product).toMap()]);
   }
 
   void mockResponseSucess() {
@@ -32,7 +32,8 @@ void main() {
   }
 
   void mockResponseInvalidData() {
-    mockRepository().thenAnswer((realInvocation) async => <String, dynamic>{});
+    mockRepository()
+        .thenAnswer((realInvocation) async => [<String, dynamic>{}]);
   }
 
   void mockResponseInvalidData2() {

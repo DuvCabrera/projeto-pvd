@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projeto_pvd/src/product_module/external/external.dart';
-import 'package:projeto_pvd/src/product_module/infra/repositories/repositories.dart';
 
 import 'create_product_repository_test.mocks.dart';
 

@@ -28,15 +28,10 @@ class MockIReadProductRepository extends _i1.Mock
   }
 
   @override
-  _i3.Future<Map<String, dynamic>> readById({int? id, String? tableName}) =>
+  _i3.Future<List<Map<String, dynamic>>> read({int? id, String? tableName}) =>
       (super.noSuchMethod(
-          Invocation.method(#readById, [], {#id: id, #tableName: tableName}),
-          returnValue:
-              Future<Map<String, dynamic>>.value(<String, dynamic>{})) as _i3
-          .Future<Map<String, dynamic>>);
-  @override
-  _i3.Future<List<Map<String, dynamic>>> read() => (super.noSuchMethod(
-      Invocation.method(#read, []),
-      returnValue: Future<List<Map<String, dynamic>>>.value(
-          <Map<String, dynamic>>[])) as _i3.Future<List<Map<String, dynamic>>>);
+              Invocation.method(#read, [], {#id: id, #tableName: tableName}),
+              returnValue: Future<List<Map<String, dynamic>>>.value(
+                  <Map<String, dynamic>>[]))
+          as _i3.Future<List<Map<String, dynamic>>>);
 }

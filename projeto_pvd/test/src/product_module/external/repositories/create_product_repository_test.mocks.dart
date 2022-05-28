@@ -46,4 +46,11 @@ class MockIProductDatasource extends _i1.Mock
       Invocation.method(#delete, [], {#tableName: tableName, #id: id}),
       returnValue: Future<void>.value(),
       returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<List<Map<String, dynamic>>> read({int? id, String? tableName}) =>
+      (super.noSuchMethod(
+              Invocation.method(#read, [], {#id: id, #tableName: tableName}),
+              returnValue: Future<List<Map<String, dynamic>>>.value(
+                  <Map<String, dynamic>>[]))
+          as _i3.Future<List<Map<String, dynamic>>>);
 }
