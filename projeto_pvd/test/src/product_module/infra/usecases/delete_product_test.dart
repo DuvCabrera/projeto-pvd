@@ -5,25 +5,6 @@ import 'package:projeto_pvd/src/modules.dart';
 
 import 'delete_product_test.mocks.dart';
 
-abstract class IDeleteProductRepository {
-  Future<void> delete({required int id, required String tableName});
-}
-
-class DeleteProduct extends IDeleteProduct {
-  final IDeleteProductRepository repository;
-  final String tableName;
-
-  DeleteProduct({required this.repository, required this.tableName});
-  @override
-  Future<void> deleteProduct(int id) async {
-    try {
-      await repository.delete(id: id, tableName: tableName);
-    } catch (e) {
-      throw InfraError.unexpected;
-    }
-  }
-}
-
 @GenerateMocks([IDeleteProductRepository])
 void main() {
   late DeleteProduct sut;
