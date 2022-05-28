@@ -6,31 +6,6 @@ import 'package:projeto_pvd/src/product_module/infra/infra.dart';
 
 import 'update_product_test.mocks.dart';
 
-abstract class IUpdateProductRepository {
-  Future<void> update({
-    required int id,
-    required Map<String, dynamic> data,
-    required String tableName,
-  });
-}
-
-class UpdateProduct extends IUpdateProduct {
-  final IUpdateProductRepository repository;
-  final String tableName;
-
-  UpdateProduct({required this.repository, required this.tableName});
-  @override
-  Future<void> updateProducts(
-      {required int id, required Product entity}) async {
-    try {
-      final Map<String, dynamic> data = ProductModel.fromEntity(entity).toMap();
-      await repository.update(id: id, data: data, tableName: tableName);
-    } catch (e) {
-      throw InfraError.unexpected;
-    }
-  }
-}
-
 @GenerateMocks([IUpdateProductRepository])
 void main() {
   late Product product;
