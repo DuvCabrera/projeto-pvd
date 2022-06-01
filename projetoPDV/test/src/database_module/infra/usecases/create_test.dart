@@ -2,24 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projeto_pvd/src/database_module/domain/domain.dart';
+import 'package:projeto_pvd/src/database_module/infra/infra.dart';
 
 import 'create_test.mocks.dart';
 
-class Create extends ICreate {
-  final IDatabaseRepository repository;
-
-  Create(this.repository);
-  @override
-  Future<void> create(
-      {required Map<String, dynamic> data, required String tableName}) async {
-    await repository.createData(data: data, tableName: tableName);
-  }
-}
-
-abstract class IDatabaseRepository {
-  Future<void> createData(
-      {required Map<String, dynamic> data, required String tableName});
-}
 
 @GenerateMocks([IDatabaseRepository])
 void main() {
@@ -27,6 +13,14 @@ void main() {
   late Map<String, dynamic> data;
   late String tableName;
   late IDatabaseRepository repository;
+
+  PostExpectation mockRepository() {
+    return when(repository.createData(data: data, tableName: tableName));
+  }
+
+  void mockFail(error) {
+    mockRepository().thenThrow(error);
+  }
 
   setUp(() {
     repository = MockIDatabaseRepository();
@@ -38,4 +32,11 @@ void main() {
     await sut.create(data: data, tableName: tableName);
     verify(repository.createData(data: data, tableName: tableName));
   });
+
+  test('create should throw when throw', () async {
+    mockFail(DatabaseError.unexpected);
+    final future = sut.create(data: data, tableName: tableName);
+    expect(future, throwsA(DatabaseError.unexpected));
+  });
 }
+

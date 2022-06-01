@@ -5,8 +5,8 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-
-import 'create_test.dart' as _i2;
+import 'package:projeto_pvd/src/database_module/infra/repositories/database_repository.dart'
+    as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -35,4 +35,18 @@ class MockIDatabaseRepository extends _i1.Mock
               #createData, [], {#data: data, #tableName: tableName}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<void> deleteData({int? id, String? tableName}) =>
+      (super.noSuchMethod(
+          Invocation.method(#deleteData, [], {#id: id, #tableName: tableName}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<List<Map<String, dynamic>>> readData(
+          {String? tableName, int? id}) =>
+      (super.noSuchMethod(
+          Invocation.method(#readData, [], {#tableName: tableName, #id: id}),
+          returnValue: Future<List<Map<String, dynamic>>>.value(
+              <Map<String, dynamic>>[])) as _i3
+          .Future<List<Map<String, dynamic>>>);
 }
