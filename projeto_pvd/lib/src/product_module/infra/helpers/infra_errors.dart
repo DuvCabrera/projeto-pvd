@@ -1,1 +1,0 @@
-enum InfraError { unexpected, invalidData }
