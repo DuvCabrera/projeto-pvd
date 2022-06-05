@@ -1,1 +1,1 @@
-enum DatabaseError { unexpected }
+enum DatabaseError { unexpected, invelidData }

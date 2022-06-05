@@ -6,4 +6,9 @@ abstract class IDatabaseRepository {
 
   Future<List<Map<String, dynamic>>> readData(
       {required String tableName, int? id});
+
+  Future<void> updateData(
+      {required int id,
+      required Map<String, dynamic> data,
+      required String tableName});
 }
