@@ -1,88 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projeto_pvd/src/database_module/domain/domain.dart';
 
 import 'package:projeto_pvd/src/database_module/external/external.dart';
-import 'package:projeto_pvd/src/database_module/infra/infra.dart';
 
 import 'database_repository_test.mocks.dart';
-
-class DatabaseRepository extends IDatabaseRepository {
-  final IDatabaseAdapter database;
-
-  DatabaseRepository(this.database);
-  @override
-  Future<void> createData(
-      {required Map<String, dynamic> data, required String tableName}) async {
-    try {
-      if (data.isEmpty || tableName.isEmpty) {
-        throw DatabaseError.invalidData;
-      }
-      await database.createData(data: data, tableName: tableName);
-    } on DatabaseError catch (e) {
-      e == DatabaseError.invalidData
-          ? throw DatabaseError.invalidData
-          : throw DatabaseError.unexpected;
-    } catch (e) {
-      throw DatabaseError.unexpected;
-    }
-  }
-
-  @override
-  Future<void> deleteData({required int id, required String tableName}) async {
-    try {
-      if (tableName.isEmpty) {
-        throw DatabaseError.invalidData;
-      }
-      await database.deleteData(id: id, tableName: tableName);
-    } on DatabaseError catch (e) {
-      e == DatabaseError.invalidData
-          ? throw DatabaseError.invalidData
-          : throw DatabaseError.unexpected;
-    } catch (e) {
-      throw DatabaseError.unexpected;
-    }
-  }
-
-  @override
-  Future<List<Map<String, dynamic>>> readData(
-      {required String tableName, int? id}) async {
-    try {
-      if (tableName.isEmpty) {
-        throw DatabaseError.invalidData;
-      }
-      return await database.readData(tableName: tableName, id: id);
-    } on DatabaseError catch (e) {
-      e == DatabaseError.invalidData
-          ? throw DatabaseError.invalidData
-          : throw DatabaseError.unexpected;
-    } catch (e) {
-      throw DatabaseError.unexpected;
-    }
-  }
-
-  @override
-  Future<void> updateData(
-      {required int id,
-      required Map<String, dynamic> data,
-      required String tableName}) async {
-    try {
-      if (data.isEmpty || tableName.isEmpty) {
-        throw DatabaseError.invalidData;
-      }
-      await database.update(id: id, tableName: tableName, data: data);
-    } on DatabaseError catch (e) {
-      e == DatabaseError.invalidData
-          ? throw DatabaseError.invalidData
-          : DatabaseError.unexpected;
-    } catch (e) {
-      throw DatabaseError.unexpected;
-    }
-  }
-}
 
 @GenerateMocks([IDatabaseAdapter])
 void main() {
@@ -96,7 +19,7 @@ void main() {
     database = MockIDatabaseAdapter();
     sut = DatabaseRepository(database);
     tableName = 'table';
-    data = {};
+    data = {'table': 'table'};
     id = 1;
   });
 
