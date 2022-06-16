@@ -3,7 +3,7 @@ import '../helpers/helpers.dart';
 
 class ProductModel extends Product {
   ProductModel(
-      {required int id,
+      {required int? id,
       required String name,
       required double price,
       required String description})
@@ -30,7 +30,6 @@ class ProductModel extends Product {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'name': name,
       'price': price,
       'description': description,
