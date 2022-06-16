@@ -49,4 +49,12 @@ class MockIDatabaseRepository extends _i1.Mock
           returnValue: Future<List<Map<String, dynamic>>>.value(
               <Map<String, dynamic>>[])) as _i3
           .Future<List<Map<String, dynamic>>>);
+  @override
+  _i3.Future<void> updateData(
+          {String? tableName, int? id, Map<String, dynamic>? data}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #updateData, [], {#tableName: tableName, #id: id, #data: data}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
 }
