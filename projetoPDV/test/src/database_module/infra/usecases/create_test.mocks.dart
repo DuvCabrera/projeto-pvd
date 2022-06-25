@@ -28,13 +28,6 @@ class MockIDatabaseRepository extends _i1.Mock
   }
 
   @override
-  set d648f263f4ce21076fa0e5acfd3a58e52121a7dd(
-          dynamic _d648f263f4ce21076fa0e5acfd3a58e52121a7dd) =>
-      super.noSuchMethod(
-          Invocation.setter(#d648f263f4ce21076fa0e5acfd3a58e52121a7dd,
-              _d648f263f4ce21076fa0e5acfd3a58e52121a7dd),
-          returnValueForMissingStub: null);
-  @override
   _i3.Future<void> createData(
           {Map<String, dynamic>? data, String? tableName}) =>
       (super.noSuchMethod(
@@ -58,10 +51,10 @@ class MockIDatabaseRepository extends _i1.Mock
           .Future<List<Map<String, dynamic>>>);
   @override
   _i3.Future<void> updateData(
-          {int? id, Map<String, dynamic>? data, String? tableName}) =>
+          {String? tableName, int? id, Map<String, dynamic>? data}) =>
       (super.noSuchMethod(
           Invocation.method(
-              #updateData, [], {#id: id, #data: data, #tableName: tableName}),
+              #updateData, [], {#tableName: tableName, #id: id, #data: data}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
 }
