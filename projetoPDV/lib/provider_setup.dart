@@ -19,7 +19,7 @@ List<SingleChildWidget> withoutDependency = [
           name: "product",
           path: '/',
           pageBuilder: (context, state) => MaterialPage<void>(
-              key: state.pageKey, child: const ProductPage()))
+              key: state.pageKey, child: ProductPage.create(context)))
     ]),
   )
 ];

@@ -58,7 +58,12 @@ class DatabaseAdapter extends IDatabaseAdapter {
   Future<List<Map<String, dynamic>>> readData(
       {int? id, required String tableName}) async {
     final Database db = await _appDatabase.initDb();
-    final result = await db.query(tableName);
+    List<Map<String, dynamic>> result = [];
+    if (id != null) {
+      result = await db.query(tableName, where: 'id = ?', whereArgs: [id]);
+    } else {
+      result = await db.query(tableName);
+    }
     return result;
   }
 

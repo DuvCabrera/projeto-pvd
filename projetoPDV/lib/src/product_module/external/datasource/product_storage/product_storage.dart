@@ -36,7 +36,7 @@ class ProductDatasource extends IProductDatasource {
   Future<List<Map<String, dynamic>>> read(
       {int? id, required String tableName}) async {
     try {
-      final result = readData.read(tableName: tableName, id: id);
+      final result = await readData.read(tableName: tableName, id: id);
       return result;
     } catch (e) {
       throw DatabaseError.unexpected;

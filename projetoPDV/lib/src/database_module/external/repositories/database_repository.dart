@@ -52,7 +52,8 @@ class DatabaseRepository extends IDatabaseRepository {
           ? throw DatabaseError.invalidData
           : throw DatabaseError.unexpected;
     } catch (e) {
-      throw DatabaseError.unexpected;
+      print(e);
+      throw Exception();
     }
   }
 

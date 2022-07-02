@@ -1,21 +1,29 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class AppDatabase {
   Future<Database> initDb() async {
-    final String path = join(await getDatabasesPath(), 'app.db');
-    return openDatabase(path, version: 1,
-        onCreate: (Database db, int newerVersion) async {
-      await _createProductTable(db);
-    });
+    sqfliteFfiInit();
+    final String appPath = await databaseFactoryFfi.getDatabasesPath();
+    final String path = join(appPath, 'app.db');
+
+    DatabaseFactory databaseFactory = databaseFactoryFfi;
+
+    return databaseFactory.openDatabase(path,
+        options: OpenDatabaseOptions(
+            version: 1,
+            onCreate: (db, newerVersion) async {
+              await _createProductTable(db);
+            }));
   }
 }
 
 Future<void> _createProductTable(Database db) async {
   await db.execute('''CREATE TABLE product (
-        id INTERGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
         price REAL,
-        description TEXT,
-      )''');
+        description TEXT
+      );''');
 }

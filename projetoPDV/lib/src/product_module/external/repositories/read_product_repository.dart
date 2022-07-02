@@ -20,7 +20,7 @@ class ReadProductRepository extends IReadProductRepository {
           ? throw ExternalError.invalidData
           : throw ExternalError.unexpected;
     } catch (e) {
-      throw ExternalError.unexpected;
+      throw Exception(e.toString());
     }
   }
 }
