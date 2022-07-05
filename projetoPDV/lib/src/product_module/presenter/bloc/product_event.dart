@@ -14,3 +14,8 @@ class RemoveProduct extends ProductEvent {
   RemoveProduct(this.id);
   final int id;
 }
+
+class UpdateProducts extends ProductEvent {
+  UpdateProducts(this.product);
+  final Product product;
+}

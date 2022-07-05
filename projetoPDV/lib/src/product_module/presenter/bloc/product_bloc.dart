@@ -1,7 +1,7 @@
 import 'package:projeto_pvd/src/product_module/presenter/bloc/bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../domain/usecases/usecases.dart';
+import '../../domain/domain.dart';
 
 class ProductBloc {
   ProductBloc(this.create, this.delete, this.read, this.update) {
@@ -11,6 +11,9 @@ class ProductBloc {
           .listen(_productSubject.add))
       ..add(_onTryChangeList
           .flatMap((event) => _changeList(event))
+          .listen(_productSubject.add))
+      ..add(_onSearchProduct
+          .flatMap((value) => _searchProducts(value))
           .listen(_productSubject.add));
   }
 
@@ -30,6 +33,27 @@ class ProductBloc {
   final _onTryChangeList = PublishSubject<ProductEvent>();
   Sink<ProductEvent> get onTryChangeList => _onTryChangeList.sink;
 
+  final _onSearchProduct = PublishSubject<String>();
+  Sink<String> get onSearchProduct => _onSearchProduct.sink;
+
+  Stream<ProductState> _searchProducts(String value) async* {
+    ProductState state = _productSubject.value;
+    List<Product> newList = [];
+
+    if (state is Loading) {
+      yield Loading();
+    } else if (state is Success) {
+      if (value.isEmpty) {
+        onTryNewSubjet.add(null);
+      } else {
+        newList = state.product
+            .where((element) => element.name.contains(value))
+            .toList();
+        yield Success(newList);
+      }
+    }
+  }
+
   Stream<ProductState> _fetchProducts() async* {
     yield Loading();
     try {
@@ -46,6 +70,9 @@ class ProductBloc {
         await create.createProduct(event.product);
       } else if (event is RemoveProduct) {
         await delete.deleteProduct(event.id);
+      } else if (event is UpdateProducts) {
+        await update.updateProducts(
+            id: event.product.id!, entity: event.product);
       }
       yield Success(await read.readProducts());
     } catch (e) {

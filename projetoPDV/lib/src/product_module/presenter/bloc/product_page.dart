@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:projeto_pvd/src/modules.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/custom_text_field.dart';
+
 class ProductPage extends StatefulWidget {
   const ProductPage({Key? key, required this.bloc}) : super(key: key);
 
@@ -47,13 +49,29 @@ class _ProductPageState extends State<ProductPage> {
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width * 0.7,
                     child: Column(children: [
+                      TextField(
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            label: Text('Buscar')),
+                        onChanged: (text) {
+                          _bloc.onSearchProduct.add(text);
+                          print(text);
+                        },
+                      ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.8,
                         child: ListView.builder(
                           shrinkWrap: true,
                           itemCount: productList.product.length,
                           itemBuilder: (context, index) => ListTile(
-                            title: Text(productList.product[index].name),
+                            title: InkWell(
+                              child: Text(productList.product[index].name),
+                              onTap: () async => showDialog(
+                                  context: context,
+                                  builder: (context) => FormDialogWidget(
+                                      product: productList.product[index],
+                                      onUpdate: _bloc.onTryChangeList.add)),
+                            ),
                             leading: Text(
                                 productList.product[index].price.toString()),
                             subtitle:
@@ -138,26 +156,6 @@ class _ProductPageState extends State<ProductPage> {
           }
         },
       ),
-    );
-  }
-}
-
-class CustomTextField extends StatelessWidget {
-  const CustomTextField(
-      {Key? key, required this.label, this.onValidate, this.onSave})
-      : super(key: key);
-  final String label;
-  final String? Function(String? text)? onValidate;
-  final void Function(String? text)? onSave;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      validator: onValidate,
-      onSaved: onSave,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      decoration:
-          InputDecoration(border: const OutlineInputBorder(), labelText: label),
     );
   }
 }
