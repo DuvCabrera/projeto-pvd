@@ -13,7 +13,11 @@ class ClientBloc {
           .listen(_clientSubject.add))
       ..add(_onTryChangeClientList
           .flatMap((event) => _changeClientList(event))
+          .listen(_clientSubject.add))
+      ..add(_onSearchClient
+          .flatMap((value) => _searchProducts(value))
           .listen(_clientSubject.add));
+    ;
   }
 
   final ICreateClient create;
@@ -24,13 +28,16 @@ class ClientBloc {
   final _subscriptions = CompositeSubscription();
 
   final _clientSubject = BehaviorSubject<ClientState>();
-  Stream<ClientState> get clientSubject => _clientSubject.stream;
+  Stream<ClientState> get onNewSubject => _clientSubject.stream;
 
   final _onTryNewSubject = PublishSubject<void>();
   Sink<void> get onTryNewSubject => _onTryNewSubject.sink;
 
   final _onTryChangeClientList = PublishSubject<ClientEvent>();
   Sink<ClientEvent> get onTryChangeClientList => _onTryChangeClientList.sink;
+
+  final _onSearchClient = PublishSubject<String>();
+  Sink<String> get onSearchClient => _onSearchClient.sink;
 
   Stream<ClientState> _fetchClientList() async* {
     yield LoadingClient();
@@ -54,5 +61,29 @@ class ClientBloc {
     } catch (e) {
       yield ErrorClient(e.toString());
     }
+  }
+
+  Stream<ClientState> _searchProducts(String value) async* {
+    ClientState state = _clientSubject.value;
+    List<Client> newList = [];
+    if (state is LoadingClient) {
+      yield LoadingClient();
+    } else if (state is SuccessClient) {
+      if (value.isEmpty) {
+        onTryNewSubject.add(null);
+      } else {
+        newList = state.clients
+            .where((element) => element.name.contains(value))
+            .toList();
+        yield SuccessClient(newList);
+      }
+    }
+  }
+
+  void dispose() {
+    _subscriptions.dispose();
+    _clientSubject.close();
+    _onTryChangeClientList.close();
+    _onTryNewSubject.close();
   }
 }

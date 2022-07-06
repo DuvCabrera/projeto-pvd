@@ -82,5 +82,9 @@ class ProductBloc {
 
   void dispose() {
     _productSubject.close();
+    _subscriptions.dispose();
+    _onTryNewSubject.close();
+    _onTryChangeList.close();
+    _onSearchProduct.close();
   }
 }

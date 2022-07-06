@@ -14,8 +14,10 @@ class AppDatabase {
         options: OpenDatabaseOptions(
             version: 1,
             onCreate: (db, newerVersion) async {
+              await _createClientTable(db);
               await _createProductTable(db);
-            }));
+            },
+            onDowngrade: onDatabaseDowngradeDelete));
   }
 }
 
@@ -26,4 +28,18 @@ Future<void> _createProductTable(Database db) async {
         price REAL,
         description TEXT
       );''');
+}
+
+Future<void> _createClientTable(Database db) async {
+  await db.execute('''CREATE TABLE client (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    surName TEXT,
+    email TEXT,
+    phone TEXT,
+    cpf INTEGER,
+    wallet REAL,
+    history TEXT
+  );
+''');
 }

@@ -29,6 +29,27 @@ class DatabaseAdapter extends IDatabaseAdapter {
 
       return;
     }
+
+    if (tableName == 'client') {
+      final existingRelation = await db.query(
+        'client',
+        where: 'id = ?',
+        whereArgs: [data["id"]],
+      );
+
+      if (existingRelation.isEmpty) {
+        await db.insert(tableName, data);
+      } else {
+        await db.update(
+          tableName,
+          data,
+          where: "id = ?",
+          whereArgs: [existingRelation.first['id']],
+        );
+      }
+
+      return;
+    }
     final alreadyExists = data["id"] != null
         ? await db.query(
             tableName,

@@ -12,11 +12,10 @@ class ReadClientRepository extends IReadClientRepository {
     try {
       final List<Map<String, dynamic>> result =
           await datasource.read(id: id, tableName: tableName);
-      if (result[0].isEmpty) {
-        throw ExternalError.invalidData;
-      } else {
-        return result;
+      for (var map in result) {
+        if (map.isEmpty) throw ExternalError.invalidData;
       }
+      return result;
     } on ExternalError catch (e) {
       e == ExternalError.invalidData
           ? throw ExternalError.invalidData

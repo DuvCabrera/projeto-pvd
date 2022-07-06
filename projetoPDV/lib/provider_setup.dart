@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projeto_pvd/src/client_module/client_module.dart';
 import 'package:projeto_pvd/src/product_module/product_module.dart';
 import 'package:provider/provider.dart' hide Create;
 import 'package:provider/single_child_widget.dart';
@@ -17,9 +18,14 @@ List<SingleChildWidget> withoutDependency = [
     create: (context) => GoRouter(routes: [
       GoRoute(
           name: "product",
+          path: '/product',
+          pageBuilder: (context, state) => MaterialPage<void>(
+              key: state.pageKey, child: ProductPage.create(context))),
+      GoRoute(
+          name: "client",
           path: '/',
           pageBuilder: (context, state) => MaterialPage<void>(
-              key: state.pageKey, child: ProductPage.create(context)))
+              key: state.pageKey, child: ClientPage.create(context)))
     ]),
   )
 ];
@@ -75,4 +81,32 @@ List<SingleChildWidget> dependent = [
   ProxyProvider<CreateProductRepository, CreateProduct>(
       update: (_, createProductRepository, __) => CreateProduct(
           repository: createProductRepository, tableName: 'product')),
+
+  /// Client
+  ProxyProvider4<Create, Delete, Read, Update, ClientDatasouce>(
+      update: (_, create, delete, read, update, __) => ClientDatasouce(
+          createData: create,
+          deleteData: delete,
+          readData: read,
+          updateData: update)),
+  ProxyProvider<ClientDatasouce, CreateClientRepository>(
+      update: (_, datasource, __) => CreateClientRepository(datasource)),
+  ProxyProvider<ClientDatasouce, DeleteClientRepository>(
+      update: (_, datasource, __) => DeleteClientRepository(datasource)),
+  ProxyProvider<ClientDatasouce, ReadClientRepository>(
+      update: (_, datasource, __) => ReadClientRepository(datasource)),
+  ProxyProvider<ClientDatasouce, UpdateClientRepository>(
+      update: (_, datasource, __) => UpdateClientRepository(datasource)),
+  ProxyProvider<CreateClientRepository, CreateClient>(
+      update: (_, repository, __) =>
+          CreateClient(repository: repository, tableName: 'client')),
+  ProxyProvider<DeleteClientRepository, DeleteClient>(
+      update: (_, repository, __) =>
+          DeleteClient(repository: repository, tableName: 'client')),
+  ProxyProvider<ReadClientRepository, ReadClient>(
+      update: (_, repository, __) =>
+          ReadClient(repository: repository, tableName: 'client')),
+  ProxyProvider<UpdateClientRepository, UpdateClient>(
+      update: (_, repository, __) =>
+          UpdateClient(repository: repository, tableName: 'client')),
 ];
