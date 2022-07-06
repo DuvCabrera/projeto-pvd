@@ -1,0 +1,1 @@
+enum ExternalError { unexpected, invalidData }

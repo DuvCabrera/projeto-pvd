@@ -19,7 +19,7 @@ class ReadProduct extends IReadProduct {
           ? throw InfraError.invalidData
           : throw InfraError.unexpected;
     } catch (e) {
-      throw InfraError.unexpected;
+      throw Exception(e);
     }
   }
 
@@ -39,7 +39,7 @@ class ReadProduct extends IReadProduct {
           ? throw InfraError.invalidData
           : throw InfraError.unexpected;
     } catch (e) {
-      throw Exception();
+      throw Exception(e);
     }
   }
 }

@@ -1,1 +1,1 @@
-// TODO Implement this library.
+export 'client_model.dart';
