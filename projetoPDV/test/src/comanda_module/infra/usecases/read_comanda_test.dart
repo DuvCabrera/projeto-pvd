@@ -3,38 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projeto_pvd/src/comanda_module/comanda_module.dart';
 
-import 'create_comanda_test.dart';
 import 'read_comanda_test.mocks.dart';
-
-class ReadComanda extends IReadComanda {
-  final IReadComandaRepository repository;
-
-  ReadComanda(this.repository);
-  @override
-  Future<List<Comanda>> readComanda() async {
-    try {
-      final result = await repository.readComandas();
-      return result.map((e) => e.toEntity()).toList();
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
-  @override
-  Future<Comanda> readComandaById(int id) async {
-    try {
-      final result = await repository.readComandaById(id);
-      return result.toEntity();
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-}
-
-abstract class IReadComandaRepository {
-  Future<List<ComandaCM>> readComandas();
-  Future<ComandaCM> readComandaById(int id);
-}
 
 @GenerateMocks([IReadComandaRepository])
 void main() {

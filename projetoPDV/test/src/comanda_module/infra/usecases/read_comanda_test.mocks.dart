@@ -2,12 +2,10 @@
 // in projeto_pvd/test/src/comanda_module/infra/usecases/read_comanda_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-
-import 'create_comanda_test.dart' as _i2;
-import 'read_comanda_test.dart' as _i3;
+import 'package:projeto_pvd/src/modules.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -25,19 +23,19 @@ class _FakeComandaCM_0 extends _i1.Fake implements _i2.ComandaCM {}
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockIReadComandaRepository extends _i1.Mock
-    implements _i3.IReadComandaRepository {
+    implements _i2.IReadComandaRepository {
   MockIReadComandaRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<List<_i2.ComandaCM>> readComandas() =>
+  _i3.Future<List<_i2.ComandaCM>> readComandas() =>
       (super.noSuchMethod(Invocation.method(#readComandas, []),
               returnValue: Future<List<_i2.ComandaCM>>.value(<_i2.ComandaCM>[]))
-          as _i4.Future<List<_i2.ComandaCM>>);
+          as _i3.Future<List<_i2.ComandaCM>>);
   @override
-  _i4.Future<_i2.ComandaCM> readComandaById(int? id) =>
+  _i3.Future<_i2.ComandaCM> readComandaById(int? id) =>
       (super.noSuchMethod(Invocation.method(#readComandaById, [id]),
               returnValue: Future<_i2.ComandaCM>.value(_FakeComandaCM_0()))
-          as _i4.Future<_i2.ComandaCM>);
+          as _i3.Future<_i2.ComandaCM>);
 }

@@ -5,9 +5,7 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-
-import 'create_comanda_test.dart' as _i4;
-import 'update_comanda_test.dart' as _i2;
+import 'package:projeto_pvd/src/comanda_module/infra/infra.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -29,7 +27,7 @@ class MockIUpdateComandaRepository extends _i1.Mock
   }
 
   @override
-  _i3.Future<void> update(_i4.ComandaCM? comanda) =>
+  _i3.Future<void> update(_i2.ComandaCM? comanda) =>
       (super.noSuchMethod(Invocation.method(#update, [comanda]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);

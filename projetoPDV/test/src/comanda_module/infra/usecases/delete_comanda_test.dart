@@ -7,24 +7,6 @@ import 'package:projeto_pvd/src/modules.dart';
 
 import 'delete_comanda_test.mocks.dart';
 
-class DeleteComanda extends IDeleteComanda {
-  final IDeleteComandaRepositoy repositoy;
-
-  DeleteComanda(this.repositoy);
-  @override
-  Future<void> removeComanda(int id) async {
-    try {
-      await repositoy.delete(id);
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-}
-
-abstract class IDeleteComandaRepositoy {
-  Future<void> delete(int id);
-}
-
 @GenerateMocks([IDeleteComandaRepositoy])
 void main() {
   late DeleteComanda sut;

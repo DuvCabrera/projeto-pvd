@@ -3,26 +3,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:projeto_pvd/src/comanda_module/comanda_module.dart';
 
-import 'create_comanda_test.dart';
 import 'update_comanda_test.mocks.dart';
-
-class UpdateComanda extends IUpdateComanda {
-  final IUpdateComandaRepository repository;
-
-  UpdateComanda(this.repository);
-  @override
-  Future<void> updateComanda(Comanda comanda) async {
-    try {
-      await repository.update(ComandaCM.fromEntity(comanda));
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-}
-
-abstract class IUpdateComandaRepository {
-  Future<void> update(ComandaCM comanda);
-}
 
 @GenerateMocks([IUpdateComandaRepository])
 void main() {
